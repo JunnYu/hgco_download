@@ -22,8 +22,11 @@ def run(cmd):
 
 
 def download_huggingface_co(url=None, path=None):
-    path = Path.cwd() if path is None else path
-    path.mkdir(exist_ok=True, parents=True)
+    if path is None:
+        path = Path.cwd()
+    else:
+        path = Path(path)
+        path.mkdir(exist_ok=True, parents=True)
     url = "https://huggingface.co/bert-base-uncased" if url is None else url
     with working_directory(path):
         run(cmd="git lfs install")
