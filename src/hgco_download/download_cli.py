@@ -1,10 +1,8 @@
 import os
-from pathlib import Path
-from contextlib import contextmanager
 from argparse import ArgumentParser
-
-
-from subprocess import Popen, PIPE, STDOUT
+from contextlib import contextmanager
+from pathlib import Path
+from subprocess import PIPE, STDOUT, Popen
 
 
 @contextmanager
@@ -26,7 +24,6 @@ def run(cmd):
 def download_huggingface_co(url, path=None):
     path = Path.cwd() if path is None else path
     with working_directory(path):
-        run(cmd="pip install hf-lfs")
         run(cmd="git lfs install")
         print(f"Save data into {Path.cwd()}")
         run(cmd=f"git clone {url}")
